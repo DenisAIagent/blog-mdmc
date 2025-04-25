@@ -1,61 +1,70 @@
-<?php get_header(); ?>
-
-<main id="main-content">
-
-    <section class="hero" id="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1>Titre modifiable via Customizer ou ACF</h1>
-                <p class="hero-slogan fade-in delay-2"><?php echo esc_html( get_theme_mod( 'mdmc_hero_slogan', 'Push. Play. Blow up.' ) ); ?></p>
-                <p class="fade-in delay-3">Sous-titre modifiable</p>
-                <div class="cta-container fade-in delay-4">
-                    <button id="simulateur-btn" class="btn btn-primary">Simulez votre campagne</button>
-                    <a href="#contact" class="btn btn-secondary">Contactez-nous</a>
-                </div>
-            </div>
-             <div class="hero-stats fade-in delay-4">
-                  <div class="stat-item">
-                       <span class="stat-number" data-target="500" data-suffix="+">0</span>
-                       <span class="stat-label">Artistes accompagnés</span>
-                  </div>
-                  <div class="stat-item">
-                       <span class="stat-number" data-target="34000000">0</span>
-                       <span class="stat-label">Vues générées</span>
-                  </div>
-                  <div class="stat-item">
-                       <span class="stat-number" data-target="5.8" data-suffix="%">0,0%</span>
-                       <span class="stat-label">Taux d'engagement</span>
-                  </div>
-             </div>
-        </div>
-    </section>
-
-    <section id="services" class="services">
+<?php // --- Section des Articles Récents --- ?>
+    <section id="articles-recents" class="articles" style="padding-top: 4rem; background-color: #0F0F0F;"> <?php // Adaptez le style/ID si besoin ?>
         <div class="container">
-            <h2 class="section-title">Nos Services</h2>
-            <div class="services-grid">
-                 <div class="service-card fade-in">
-                      <div class="service-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/icons/youtube-ads-icon.png" alt="Icône Campagnes Publicitaires" loading="lazy"></div>
-                      <h3>Campagnes Publicitaires</h3>
-                      <p>Stratégies publicitaires optimisées...</p>
-                 </div>
-                 <div class="service-card fade-in delay-1">
-                      <div class="service-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/icons/strategy-icon.png" alt="Icône Stratégie de contenu" loading="lazy"></div>
-                      <h3>Stratégie de Contenu</h3>
-                      <p>Accompagnement personnalisé...</p>
-                 </div>
-                 <div class="service-card fade-in delay-2">
-                      <div class="service-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/icons/analytics-icon.png" alt="Icône Analytics & Optimisation" loading="lazy"></div>
-                      <h3>Analytics & Optimisation</h3>
-                      <p>Suivi détaillé des performances...</p>
-                 </div>
-            </div>
-        </div>
-    </section>
+            <h2 class="section-title" style="color: var(--color-text);"><?php _e('Nos Derniers Articles', 'mdmc-theme'); // Titre de la section ?></h2>
 
-    <?php // Intégrer les autres sections (About, Articles récents, Contact) de manière similaire ?>
-    <?php // Pour "Articles récents", vous pouvez utiliser une WP_Query personnalisée ici ?>
+            <?php
+            // Configuration de la requête pour chercher les articles
+            $args = array(
+                'post_type'      => 'post',       // On veut des articles de blog
+                'posts_per_page' => 3,            // Combien d'articles afficher ? Mettez -1 pour tous ou un autre chiffre.
+                'post_status'    => 'publish',    // Uniquement les articles publiés
+                'orderby'        => 'date',       // Trier par date
+                'order'          => 'DESC',       // Du plus récent au plus ancien
+            );
 
-</main>
+            // Exécution de la requête personnalisée
+            $recent_posts_query = new WP_Query( $args );
+            ?>
 
-<?php get_footer(); ?>
+            <?php if ( $recent_posts_query->have_posts() ) : // Vérifie s'il y a des articles ?>
+                <div class="articles-grid">
+
+                    <?php while ( $recent_posts_query->have_posts() ) : $recent_posts_query->the_post(); // La boucle ?>
+
+                        <article id="post-<?php the_ID(); ?>" <?php post_class('article-card'); // Utilise le style de carte d'article de votre CSS ?>>
+
+                            <?php if ( has_post_thumbnail() ) : // Vérifie s'il y a une image à la une ?>
+                                <a href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+                                    <?php the_post_thumbnail('medium_large', ['class' => 'article-image', 'loading' => 'lazy']); // Affiche l'image ?>
+                                </a>
+                            <?php else : ?>
+                                <div class="article-image-placeholder"></div> <?php // Affiche un placeholder si pas d'image ?>
+                            <?php endif; ?>
+
+                            <div class="article-content">
+                                <?php
+                                // Affiche la première catégorie de l'article
+                                $categories = get_the_category();
+                                if ( ! empty( $categories ) ) : ?>
+                                    <span class="article-category"><?php echo esc_html( $categories[0]->name ); ?></span>
+                                <?php endif; ?>
+
+                                <h3 class="article-title"><a href="<?php the_permalink(); ?>"><?php the_title(); // Affiche le titre de l'article ?></a></h3>
+                                <span class="article-date"><?php echo get_the_date(); // Affiche la date ?></span>
+                                <div class="article-excerpt">
+                                    <?php the_excerpt(); // Affiche l'extrait ?>
+                                </div>
+                                <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-small" style="font-size: 0.875rem; padding: 0.6rem 1.2rem;"><?php _e('Lire la suite', 'mdmc-theme'); // Bouton Lire la suite ?></a>
+                            </div>
+                        </article>
+
+                    <?php endwhile; // Fin de la boucle ?>
+
+                </div><?php
+                 // Optionnel : Ajouter un bouton "Voir tous les articles" qui mène à la page de blog
+                 $blog_page_url = get_permalink( get_option( 'page_for_posts' ) ); // Récupère l'URL de la page de blog définie dans Réglages > Lecture
+                 if ($blog_page_url) :
+                ?>
+                <div class="articles-cta" style="text-align: center; margin-top: 3rem;">
+                    <a href="<?php echo esc_url($blog_page_url); ?>" class="btn btn-secondary"><?php _e('Voir tous les articles', 'mdmc-theme'); ?></a>
+                </div>
+                <?php endif; ?>
+
+            <?php else : // S'il n'y a aucun article ?>
+                <p><?php _e('Aucun article à afficher pour le moment.', 'mdmc-theme'); ?></p>
+            <?php endif; ?>
+
+            <?php wp_reset_postdata(); // Important après une boucle WP_Query personnalisée ?>
+
+        </div></section><?php // --- Fin Section des Articles Récents --- ?>
