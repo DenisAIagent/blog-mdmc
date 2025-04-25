@@ -1,19 +1,27 @@
 <?php
-MYSQLDATABASE="railway"
-MYSQLUSER="root"
-MYSQLHOST="mysql.railway.internal"
-MYSQLPASSWORD="ojuNJzLTITYUhVINEAYOLhqiTzWcoHMd"
-MYSQLPORT="3306"
 // === Configuration MySQL - Railway, version en dur pour test === //
+/** Nom de la base de données de WordPress. */
 define( 'DB_NAME', 'railway' );
-define( 'DB_USER', 'root' ); 
+
+/** Utilisateur de la base de données MySQL. */
+define( 'DB_USER', 'root' );
+
+/** Mot de passe de la base de données MySQL. */
+// ATTENTION : Mot de passe en clair ci-dessous ! Risque de sécurité si le code est public !
 define( 'DB_PASSWORD', 'ojuNJzLTITYUhVINEAYOLhqiTzWcoHMd' );
+
+/** Adresse de l’hébergement MySQL. */
+// Le port 3306 est standard, donc l'hôte seul suffit.
 define( 'DB_HOST', 'mysql.railway.internal' );
-define( 'MYSQLPORT', '3306' );
-define( 'DB_CHARSET', 'utf8' );
+
+/** Jeu de caractères à utiliser par la base de données lors de la création des tables. */
+define( 'DB_CHARSET', 'utf8mb4' ); // utf8mb4 est recommandé
+
+/** Type de collation de la base de données. */
 define( 'DB_COLLATE', '' );
 
 // === Clés de sécurité WordPress === //
+// Assurez-vous que ce sont bien vos clés uniques générées
 define('AUTH_KEY',         'c}8JDK)iS^hS+sw-#VZ;Y;4$+.BO,Xz#N-YIk:$kuNnWDRX-`KMyIdl|=Se,|Wvv');
 define('SECURE_AUTH_KEY',  'UA_KcY7UyrvF{61F|5~rinmqW|sr *FD2.Ol~dV-YibLv(&:KLc*+uI6pUR+#+Lu');
 define('LOGGED_IN_KEY',    ',f4yAIN;Gv^^0s-Hx1#(@>[(/IA#DZoTE[$uVLJ)`|+z& +1]kJe!3R|{{_sM{zj');
@@ -27,15 +35,19 @@ define('NONCE_SALT',       '^:mZFv]so/m,Z{=7uK9L%x.~V_?=|L1]OY1&o[2X0_OoQD;o%Jj?
 $table_prefix = 'wp_';
 
 // === Debug === //
+// Mettre à true seulement pour le débogage, false en production.
 define( 'WP_DEBUG', false );
 
-// === Forcer l’URL (si besoin) === //
+// === Forcer l’URL (généralement pas nécessaire si bien configuré) === //
 // define( 'WP_HOME', 'https://blog-mdmc.up.railway.app' );
 // define( 'WP_SITEURL', 'https://blog-mdmc.up.railway.app' );
 
-// === Chemin absolu === //
+/* C’est tout, ne touchez pas à ce qui suit ! Bonne publication. */
+
+/** Chemin absolu vers le dossier de WordPress. */
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
 
+/** Réglage des variables WordPress et de ses fichiers inclus. */
 require_once ABSPATH . 'wp-settings.php';
