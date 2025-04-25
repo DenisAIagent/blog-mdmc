@@ -1,4 +1,11 @@
 <?php
+/** Fix HTTPS detection behind Railway proxy */
+// Ce bloc aide WordPress à savoir qu'il est en HTTPS même s'il est derrière un proxy.
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
+/** End Fix */
+
 // === Configuration MySQL - Railway, version en dur pour test === //
 /** Nom de la base de données de WordPress. */
 define( 'DB_NAME', 'railway' );
@@ -38,9 +45,10 @@ $table_prefix = 'wp_';
 // Mettre à true seulement pour le débogage, false en production.
 define( 'WP_DEBUG', false );
 
-// === Forcer l’URL (généralement pas nécessaire si bien configuré) === //
-// define( 'WP_HOME', 'https://blog-mdmc.up.railway.app' );
-// define( 'WP_SITEURL', 'https://blog-mdmc.up.railway.app' );
+// === Forcer l’URL (Normalement inutile si les réglages WP sont corrects et le fix HTTPS est appliqué) === //
+// Laissez-les commentés sauf si vous avez encore des problèmes de redirection après les autres corrections.
+// define( 'WP_HOME', 'https://blog-wp-production.up.railway.app' );
+// define( 'WP_SITEURL', 'https://blog-wp-production.up.railway.app' );
 
 /* C’est tout, ne touchez pas à ce qui suit ! Bonne publication. */
 
