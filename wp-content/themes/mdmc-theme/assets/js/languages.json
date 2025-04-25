@@ -1,0 +1,170 @@
+{
+    "blog_title": {
+        "fr": "Blog MDMC Music Ads",
+        "en": "MDMC Music Ads Blog",
+        "es": "Blog de MDMC Music Ads",
+        "pt": "Blog MDMC Music Ads"
+    },
+    "blog_subtitle": {
+        "fr": "Actualités et conseils sur le marketing musical digital",
+        "en": "News and tips on digital music marketing",
+        "es": "Noticias y consejos sobre marketing musical digital",
+        "pt": "Notícias e dicas sobre marketing musical digital"
+    },
+    "skip_to_content": {
+        "fr": "Aller au contenu",
+        "en": "Skip to content",
+        "es": "Ir al contenido",
+        "pt": "Pular para o conteúdo"
+    },
+    "menu": {
+        "fr": "Menu",
+        "en": "Menu",
+        "es": "Menú",
+        "pt": "Menu"
+    },
+    "simulator_button": {
+        "fr": "Simuler votre campagne",
+        "en": "Simulate your campaign",
+        "es": "Simular su campaña",
+        "pt": "Simular sua campanha"
+    },
+    "all_categories": {
+        "fr": "Toutes les catégories",
+        "en": "All categories",
+        "es": "Todas las categorías",
+        "pt": "Todas as categorias"
+    },
+    "read_more": {
+        "fr": "Lire plus",
+        "en": "Read more",
+        "es": "Leer más",
+        "pt": "Ler mais"
+    },
+    "previous": {
+        "fr": "Précédent",
+        "en": "Previous",
+        "es": "Anterior",
+        "pt": "Anterior"
+    },
+    "next": {
+        "fr": "Suivant",
+        "en": "Next",
+        "es": "Siguiente",
+        "pt": "Próximo"
+    },
+    "no_posts_found": {
+        "fr": "Aucun article trouvé",
+        "en": "No posts found",
+        "es": "No se encontraron artículos",
+        "pt": "Nenhum artigo encontrado"
+    },
+    "no_posts_message": {
+        "fr": "Désolé, aucun article ne correspond à votre recherche.",
+        "en": "Sorry, no posts match your search.",
+        "es": "Lo sentimos, ningún artículo coincide con tu búsqueda.",
+        "pt": "Desculpe, nenhum artigo corresponde à sua pesquisa."
+    },
+    "previous_post": {
+        "fr": "Article précédent",
+        "en": "Previous post",
+        "es": "Artículo anterior",
+        "pt": "Artigo anterior"
+    },
+    "next_post": {
+        "fr": "Article suivant",
+        "en": "Next post",
+        "es": "Artículo siguiente",
+        "pt": "Próximo artigo"
+    },
+    "share_this": {
+        "fr": "Partager cet article",
+        "en": "Share this post",
+        "es": "Compartir este artículo",
+        "pt": "Compartilhar este artigo"
+    },
+    "simulator_title": {
+        "fr": "Prêt à lancer votre campagne musicale ?",
+        "en": "Ready to launch your music campaign?",
+        "es": "¿Listo para lanzar tu campaña musical?",
+        "pt": "Pronto para lançar sua campanha musical?"
+    },
+    "simulator_text": {
+        "fr": "Utilisez notre simulateur pour estimer le coût et l'impact de votre prochaine campagne publicitaire musicale.",
+        "en": "Use our simulator to estimate the cost and impact of your next music advertising campaign.",
+        "es": "Utilice nuestro simulador para estimar el costo y el impacto de su próxima campaña publicitaria musical.",
+        "pt": "Use nosso simulador para estimar o custo e o impacto de sua próxima campanha publicitária musical."
+    },
+    "footer_tagline": {
+        "fr": "Agence de marketing digital spécialisée dans la musique",
+        "en": "Digital marketing agency specialized in music",
+        "es": "Agencia de marketing digital especializada en música",
+        "pt": "Agência de marketing digital especializada em música"
+    },
+    "navigation": {
+        "fr": "Navigation",
+        "en": "Navigation",
+        "es": "Navegación",
+        "pt": "Navegação"
+    },
+    "resources": {
+        "fr": "Ressources",
+        "en": "Resources",
+        "es": "Recursos",
+        "pt": "Recursos"
+    },
+    "legal": {
+        "fr": "Mentions légales",
+        "en": "Legal",
+        "es": "Avisos legales",
+        "pt": "Avisos legais"
+    },
+    "copyright_text": {
+        "fr": "Tous droits réservés.",
+        "en": "All rights reserved.",
+        "es": "Todos los derechos reservados.",
+        "pt": "Todos os direitos reservados."
+    },
+    "404_title": {
+        "fr": "Page non trouvée",
+        "en": "Page not found",
+        "es": "Página no encontrada",
+        "pt": "Página não encontrada"
+    },
+    "404_text": {
+        "fr": "La page que vous recherchez n'existe pas ou a été déplacée.",
+        "en": "The page you are looking for doesn't exist or has been moved.",
+        "es": "La página que estás buscando no existe o ha sido movida.",
+        "pt": "A página que você está procurando não existe ou foi movida."
+    },
+    "back_to_home": {
+        "fr": "Retour à l'accueil",
+        "en": "Back to home",
+        "es": "Volver al inicio",
+        "pt": "Voltar para o início"
+    },
+    "search_title": {
+        "fr": "Essayez de rechercher",
+        "en": "Try searching",
+        "es": "Intenta buscar",
+        "pt": "Tente pesquisar"
+    },
+    "search": {
+        "fr": "Rechercher",
+        "en": "Search",
+        "es": "Buscar",
+        "pt": "Pesquisar"
+    },
+    "search_for": {
+        "fr": "Rechercher :",
+        "en": "Search for:",
+        "es": "Buscar:",
+        "pt": "Pesquisar:"
+    },
+    "search_placeholder": {
+        "fr": "Rechercher des articles...",
+        "en": "Search articles...",
+        "es": "Buscar artículos...",
+        "pt": "Pesquisar artigos..."
+    }
+}

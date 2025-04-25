@@ -1,67 +1,72 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The main template file
+ *
+ * @package MDMC_Theme
+ */
 
-<main id="main-content">
+get_header();
+?>
 
-    <?php if ( is_home() && ! is_front_page() ) : ?>
-        <header class="page-header">
-            <h1 class="page-title"><?php single_post_title(); ?></h1>
-        </header>
-    <?php endif; ?>
-
-    <?php if ( have_posts() ) : ?>
-        <section id="articles" class="articles" style="padding-top: 4rem;">
-            <div class="container">
-
-                <div class="articles-grid">
-                    <?php while ( have_posts() ) : the_post(); ?>
-
-                        <article id="post-<?php the_ID(); ?>" <?php post_class('article-card'); ?>>
-                            <?php if ( has_post_thumbnail() ) : ?>
-                                <a href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
-                                    <?php the_post_thumbnail('medium_large', ['class' => 'article-image', 'loading' => 'lazy']); ?>
-                                </a>
-                            <?php else : ?>
-                                <div class="article-image-placeholder"></div>
-                            <?php endif; ?>
-
-                            <div class="article-content">
-                                <?php
-                                $categories = get_the_category();
-                                if ( ! empty( $categories ) ) {
-                                    echo '<span class="article-category">' . esc_html( $categories[0]->name ) . '</span>';
-                                }
-                                ?>
-                                <h3 class="article-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                                <span class="article-date"><?php echo get_the_date(); ?></span>
-                                <div class="article-excerpt">
-                                    <?php the_excerpt(); ?>
-                                </div>
-                                <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-small"><?php _e('Lire la suite', 'mdmc-theme'); ?></a>
-                            </div>
-                        </article>
-
-                    <?php endwhile; ?>
-                </div>
-
-                <?php the_posts_pagination( array(
-                    'mid_size'  => 2,
-                    'prev_text' => __( 'Précédent', 'mdmc-theme' ),
-                    'next_text' => __( 'Suivant', 'mdmc-theme' ),
-                ) ); ?>
-
-            </div>
-        </section>
-
-    <?php else : ?>
-        <section class="no-results">
-            <div class="container">
-                <h2><?php _e('Rien à afficher', 'mdmc-theme'); ?></h2>
-                <p><?php _e('Il semble que nous ne trouvions pas ce que vous cherchez. Peut-être essayer une recherche ?', 'mdmc-theme'); ?></p>
+<main id="primary" class="site-main">
+    <div class="hero-blog">
+        <div class="container">
+            <h1 class="hero-title"><?php echo esc_html(mdmc_get_translation('blog_title')); ?></h1>
+            <p class="hero-subtitle"><?php echo esc_html(mdmc_get_translation('blog_subtitle')); ?></p>
+            
+            <div class="search-container">
                 <?php get_search_form(); ?>
             </div>
-        </section>
-    <?php endif; ?>
+            
+            <div class="category-filters">
+                <?php
+                $categories = get_categories(array(
+                    'orderby' => 'name',
+                    'order'   => 'ASC',
+                    'hide_empty' => true,
+                ));
+                
+                if (!empty($categories)) :
+                    echo '<ul class="category-pills">';
+                    echo '<li><a href="' . esc_url(home_url('/')) . '" class="category-pill active">' . esc_html(mdmc_get_translation('all_categories')) . '</a></li>';
+                    
+                    foreach ($categories as $category) :
+                        echo '<li><a href="' . esc_url(get_category_link($category->term_id)) . '" class="category-pill">' . esc_html($category->name) . '</a></li>';
+                    endforeach;
+                    
+                    echo '</ul>';
+                endif;
+                ?>
+            </div>
+        </div>
+    </div>
 
-</main>
+    <div class="container">
+        <?php if (have_posts()) : ?>
+            <div class="blog-grid">
+                <?php
+                while (have_posts()) :
+                    the_post();
+                    get_template_part('template-parts/content/content', 'card');
+                endwhile;
+                ?>
+            </div>
 
-<?php get_footer(); ?>
+            <?php
+            the_posts_pagination(array(
+                'prev_text' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="screen-reader-text">' . mdmc_get_translation('previous') . '</span>',
+                'next_text' => '<span class="screen-reader-text">' . mdmc_get_translation('next') . '</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            ));
+            ?>
+
+        <?php else : ?>
+            <div class="no-results">
+                <h2><?php echo esc_html(mdmc_get_translation('no_posts_found')); ?></h2>
+                <p><?php echo esc_html(mdmc_get_translation('no_posts_message')); ?></p>
+            </div>
+        <?php endif; ?>
+    </div>
+</main><!-- #primary -->
+
+<?php
+get_footer();

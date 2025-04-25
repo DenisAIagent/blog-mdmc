@@ -1,0 +1,490 @@
+{
+    "fr": {
+        "bonjour": {
+            "en": "hello",
+            "es": "hola",
+            "pt": "olá"
+        },
+        "merci": {
+            "en": "thank you",
+            "es": "gracias",
+            "pt": "obrigado"
+        },
+        "musique": {
+            "en": "music",
+            "es": "música",
+            "pt": "música"
+        },
+        "marketing": {
+            "en": "marketing",
+            "es": "marketing",
+            "pt": "marketing"
+        },
+        "digital": {
+            "en": "digital",
+            "es": "digital",
+            "pt": "digital"
+        },
+        "blog": {
+            "en": "blog",
+            "es": "blog",
+            "pt": "blog"
+        },
+        "article": {
+            "en": "article",
+            "es": "artículo",
+            "pt": "artigo"
+        },
+        "campagne": {
+            "en": "campaign",
+            "es": "campaña",
+            "pt": "campanha"
+        },
+        "publicitaire": {
+            "en": "advertising",
+            "es": "publicitario",
+            "pt": "publicitário"
+        },
+        "simulateur": {
+            "en": "simulator",
+            "es": "simulador",
+            "pt": "simulador"
+        },
+        "agence": {
+            "en": "agency",
+            "es": "agencia",
+            "pt": "agência"
+        },
+        "spécialisée": {
+            "en": "specialized",
+            "es": "especializada",
+            "pt": "especializada"
+        },
+        "dans": {
+            "en": "in",
+            "es": "en",
+            "pt": "em"
+        },
+        "la": {
+            "en": "the",
+            "es": "la",
+            "pt": "a"
+        },
+        "le": {
+            "en": "the",
+            "es": "el",
+            "pt": "o"
+        },
+        "les": {
+            "en": "the",
+            "es": "los",
+            "pt": "os"
+        },
+        "et": {
+            "en": "and",
+            "es": "y",
+            "pt": "e"
+        },
+        "pour": {
+            "en": "for",
+            "es": "para",
+            "pt": "para"
+        },
+        "avec": {
+            "en": "with",
+            "es": "con",
+            "pt": "com"
+        },
+        "artiste": {
+            "en": "artist",
+            "es": "artista",
+            "pt": "artista"
+        },
+        "artistes": {
+            "en": "artists",
+            "es": "artistas",
+            "pt": "artistas"
+        },
+        "label": {
+            "en": "label",
+            "es": "sello discográfico",
+            "pt": "gravadora"
+        },
+        "labels": {
+            "en": "labels",
+            "es": "sellos discográficos",
+            "pt": "gravadoras"
+        },
+        "professionnel": {
+            "en": "professional",
+            "es": "profesional",
+            "pt": "profissional"
+        },
+        "professionnels": {
+            "en": "professionals",
+            "es": "profesionales",
+            "pt": "profissionais"
+        },
+        "industrie": {
+            "en": "industry",
+            "es": "industria",
+            "pt": "indústria"
+        },
+        "musicale": {
+            "en": "musical",
+            "es": "musical",
+            "pt": "musical"
+        },
+        "publicité": {
+            "en": "advertising",
+            "es": "publicidad",
+            "pt": "publicidade"
+        },
+        "promotion": {
+            "en": "promotion",
+            "es": "promoción",
+            "pt": "promoção"
+        },
+        "stratégie": {
+            "en": "strategy",
+            "es": "estrategia",
+            "pt": "estratégia"
+        },
+        "contenu": {
+            "en": "content",
+            "es": "contenido",
+            "pt": "conteúdo"
+        },
+        "réseaux sociaux": {
+            "en": "social media",
+            "es": "redes sociales",
+            "pt": "redes sociais"
+        },
+        "audience": {
+            "en": "audience",
+            "es": "audiencia",
+            "pt": "audiência"
+        },
+        "cible": {
+            "en": "target",
+            "es": "objetivo",
+            "pt": "alvo"
+        },
+        "performance": {
+            "en": "performance",
+            "es": "rendimiento",
+            "pt": "desempenho"
+        },
+        "analyse": {
+            "en": "analysis",
+            "es": "análisis",
+            "pt": "análise"
+        },
+        "résultat": {
+            "en": "result",
+            "es": "resultado",
+            "pt": "resultado"
+        },
+        "résultats": {
+            "en": "results",
+            "es": "resultados",
+            "pt": "resultados"
+        },
+        "optimisation": {
+            "en": "optimization",
+            "es": "optimización",
+            "pt": "otimização"
+        },
+        "référencement": {
+            "en": "SEO",
+            "es": "SEO",
+            "pt": "SEO"
+        },
+        "visibilité": {
+            "en": "visibility",
+            "es": "visibilidad",
+            "pt": "visibilidade"
+        },
+        "tendance": {
+            "en": "trend",
+            "es": "tendencia",
+            "pt": "tendência"
+        },
+        "tendances": {
+            "en": "trends",
+            "es": "tendencias",
+            "pt": "tendências"
+        },
+        "actualité": {
+            "en": "news",
+            "es": "actualidad",
+            "pt": "notícia"
+        },
+        "actualités": {
+            "en": "news",
+            "es": "noticias",
+            "pt": "notícias"
+        },
+        "conseil": {
+            "en": "advice",
+            "es": "consejo",
+            "pt": "conselho"
+        },
+        "conseils": {
+            "en": "tips",
+            "es": "consejos",
+            "pt": "conselhos"
+        },
+        "guide": {
+            "en": "guide",
+            "es": "guía",
+            "pt": "guia"
+        },
+        "tutoriel": {
+            "en": "tutorial",
+            "es": "tutorial",
+            "pt": "tutorial"
+        },
+        "tutoriels": {
+            "en": "tutorials",
+            "es": "tutoriales",
+            "pt": "tutoriais"
+        },
+        "comment": {
+            "en": "how to",
+            "es": "cómo",
+            "pt": "como"
+        },
+        "pourquoi": {
+            "en": "why",
+            "es": "por qué",
+            "pt": "por que"
+        },
+        "quand": {
+            "en": "when",
+            "es": "cuándo",
+            "pt": "quando"
+        },
+        "où": {
+            "en": "where",
+            "es": "dónde",
+            "pt": "onde"
+        },
+        "qui": {
+            "en": "who",
+            "es": "quién",
+            "pt": "quem"
+        },
+        "quoi": {
+            "en": "what",
+            "es": "qué",
+            "pt": "o que"
+        },
+        "succès": {
+            "en": "success",
+            "es": "éxito",
+            "pt": "sucesso"
+        },
+        "réussite": {
+            "en": "achievement",
+            "es": "logro",
+            "pt": "conquista"
+        },
+        "défi": {
+            "en": "challenge",
+            "es": "desafío",
+            "pt": "desafio"
+        },
+        "défis": {
+            "en": "challenges",
+            "es": "desafíos",
+            "pt": "desafios"
+        },
+        "solution": {
+            "en": "solution",
+            "es": "solución",
+            "pt": "solução"
+        },
+        "solutions": {
+            "en": "solutions",
+            "es": "soluciones",
+            "pt": "soluções"
+        },
+        "outil": {
+            "en": "tool",
+            "es": "herramienta",
+            "pt": "ferramenta"
+        },
+        "outils": {
+            "en": "tools",
+            "es": "herramientas",
+            "pt": "ferramentas"
+        },
+        "ressource": {
+            "en": "resource",
+            "es": "recurso",
+            "pt": "recurso"
+        },
+        "ressources": {
+            "en": "resources",
+            "es": "recursos",
+            "pt": "recursos"
+        }
+    },
+    "en": {
+        "hello": {
+            "fr": "bonjour",
+            "es": "hola",
+            "pt": "olá"
+        },
+        "thank you": {
+            "fr": "merci",
+            "es": "gracias",
+            "pt": "obrigado"
+        },
+        "music": {
+            "fr": "musique",
+            "es": "música",
+            "pt": "música"
+        },
+        "marketing": {
+            "fr": "marketing",
+            "es": "marketing",
+            "pt": "marketing"
+        },
+        "digital": {
+            "fr": "digital",
+            "es": "digital",
+            "pt": "digital"
+        },
+        "blog": {
+            "fr": "blog",
+            "es": "blog",
+            "pt": "blog"
+        },
+        "article": {
+            "fr": "article",
+            "es": "artículo",
+            "pt": "artigo"
+        },
+        "campaign": {
+            "fr": "campagne",
+            "es": "campaña",
+            "pt": "campanha"
+        },
+        "advertising": {
+            "fr": "publicité",
+            "es": "publicidad",
+            "pt": "publicidade"
+        },
+        "simulator": {
+            "fr": "simulateur",
+            "es": "simulador",
+            "pt": "simulador"
+        }
+    },
+    "es": {
+        "hola": {
+            "fr": "bonjour",
+            "en": "hello",
+            "pt": "olá"
+        },
+        "gracias": {
+            "fr": "merci",
+            "en": "thank you",
+            "pt": "obrigado"
+        },
+        "música": {
+            "fr": "musique",
+            "en": "music",
+            "pt": "música"
+        },
+        "marketing": {
+            "fr": "marketing",
+            "en": "marketing",
+            "pt": "marketing"
+        },
+        "digital": {
+            "fr": "digital",
+            "en": "digital",
+            "pt": "digital"
+        },
+        "blog": {
+            "fr": "blog",
+            "en": "blog",
+            "pt": "blog"
+        },
+        "artículo": {
+            "fr": "article",
+            "en": "article",
+            "pt": "artigo"
+        },
+        "campaña": {
+            "fr": "campagne",
+            "en": "campaign",
+            "pt": "campanha"
+        },
+        "publicidad": {
+            "fr": "publicité",
+            "en": "advertising",
+            "pt": "publicidade"
+        },
+        "simulador": {
+            "fr": "simulateur",
+            "en": "simulator",
+            "pt": "simulador"
+        }
+    },
+    "pt": {
+        "olá": {
+            "fr": "bonjour",
+            "en": "hello",
+            "es": "hola"
+        },
+        "obrigado": {
+            "fr": "merci",
+            "en": "thank you",
+            "es": "gracias"
+        },
+        "música": {
+            "fr": "musique",
+            "en": "music",
+            "es": "música"
+        },
+        "marketing": {
+            "fr": "marketing",
+            "en": "marketing",
+            "es": "marketing"
+        },
+        "digital": {
+            "fr": "digital",
+            "en": "digital",
+            "es": "digital"
+        },
+        "blog": {
+            "fr": "blog",
+            "en": "blog",
+            "es": "blog"
+        },
+        "artigo": {
+            "fr": "article",
+            "en": "article",
+            "es": "artículo"
+        },
+        "campanha": {
+            "fr": "campagne",
+            "en": "campaign",
+            "es": "campaña"
+        },
+        "publicidade": {
+            "fr": "publicité",
+            "en": "advertising",
+            "es": "publicidad"
+        },
+        "simulador": {
+            "fr": "simulateur",
+            "en": "simulator",
+            "es": "simulador"
+        }
+    }
+}
