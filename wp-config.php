@@ -1,10 +1,15 @@
 <?php
-
+MYSQLDATABASE="railway"
+MYSQLUSER="root"
+MYSQLHOST="mysql.railway.internal"
+MYSQLPASSWORD="ojuNJzLTITYUhVINEAYOLhqiTzWcoHMd"
+MYSQLPORT="3306"
 // === Configuration MySQL - Railway, version en dur pour test === //
-define( 'DB_NAME', 'railway' ); // remplace si besoin
-define( 'DB_USER', 'TON_UTILISATEUR' ); // remplace ici
-define( 'DB_PASSWORD', 'TON_MOT_DE_PASSE' ); // remplace ici
-define( 'DB_HOST', 'mysql-production-fde2.up.railway.app:3306' );
+define( 'DB_NAME', 'railway' );
+define( 'DB_USER', 'root' ); 
+define( 'DB_PASSWORD', 'ojuNJzLTITYUhVINEAYOLhqiTzWcoHMd' );
+define( 'DB_HOST', 'mysql.railway.internal' );
+define( 'MYSQLPORT', '3306' );
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
 
