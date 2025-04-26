@@ -1,70 +1,175 @@
-<?php // --- Section des Articles Récents --- ?>
-    <section id="articles-recents" class="articles" style="padding-top: 4rem; background-color: #0F0F0F;"> <?php // Adaptez le style/ID si besoin ?>
+<?php
+/**
+ * The template for displaying the front page
+ *
+ * @package MDMC_Theme
+ */
+
+get_header();
+?>
+
+<main id="primary" class="site-main">
+
+    <section class="hero">
         <div class="container">
-            <h2 class="section-title" style="color: var(--color-text);"><?php _e('Nos Derniers Articles', 'mdmc-theme'); // Titre de la section ?></h2>
-
-            <?php
-            // Configuration de la requête pour chercher les articles
-            $args = array(
-                'post_type'      => 'post',       // On veut des articles de blog
-                'posts_per_page' => 3,            // Combien d'articles afficher ? Mettez -1 pour tous ou un autre chiffre.
-                'post_status'    => 'publish',    // Uniquement les articles publiés
-                'orderby'        => 'date',       // Trier par date
-                'order'          => 'DESC',       // Du plus récent au plus ancien
-            );
-
-            // Exécution de la requête personnalisée
-            $recent_posts_query = new WP_Query( $args );
-            ?>
-
-            <?php if ( $recent_posts_query->have_posts() ) : // Vérifie s'il y a des articles ?>
-                <div class="articles-grid">
-
-                    <?php while ( $recent_posts_query->have_posts() ) : $recent_posts_query->the_post(); // La boucle ?>
-
-                        <article id="post-<?php the_ID(); ?>" <?php post_class('article-card'); // Utilise le style de carte d'article de votre CSS ?>>
-
-                            <?php if ( has_post_thumbnail() ) : // Vérifie s'il y a une image à la une ?>
-                                <a href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
-                                    <?php the_post_thumbnail('medium_large', ['class' => 'article-image', 'loading' => 'lazy']); // Affiche l'image ?>
-                                </a>
-                            <?php else : ?>
-                                <div class="article-image-placeholder"></div> <?php // Affiche un placeholder si pas d'image ?>
-                            <?php endif; ?>
-
-                            <div class="article-content">
-                                <?php
-                                // Affiche la première catégorie de l'article
-                                $categories = get_the_category();
-                                if ( ! empty( $categories ) ) : ?>
-                                    <span class="article-category"><?php echo esc_html( $categories[0]->name ); ?></span>
-                                <?php endif; ?>
-
-                                <h3 class="article-title"><a href="<?php the_permalink(); ?>"><?php the_title(); // Affiche le titre de l'article ?></a></h3>
-                                <span class="article-date"><?php echo get_the_date(); // Affiche la date ?></span>
-                                <div class="article-excerpt">
-                                    <?php the_excerpt(); // Affiche l'extrait ?>
-                                </div>
-                                <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-small" style="font-size: 0.875rem; padding: 0.6rem 1.2rem;"><?php _e('Lire la suite', 'mdmc-theme'); // Bouton Lire la suite ?></a>
-                            </div>
-                        </article>
-
-                    <?php endwhile; // Fin de la boucle ?>
-
-                </div><?php
-                 // Optionnel : Ajouter un bouton "Voir tous les articles" qui mène à la page de blog
-                 $blog_page_url = get_permalink( get_option( 'page_for_posts' ) ); // Récupère l'URL de la page de blog définie dans Réglages > Lecture
-                 if ($blog_page_url) :
+            <h1><?php echo mdmc_get_translation('hero_title'); ?></h1>
+            <p><?php echo mdmc_get_translation('hero_description'); ?></p>
+            
+            <?php get_search_form(); ?>
+            
+            <div class="categories">
+                <div class="category-pill active"><?php echo mdmc_get_translation('category_all'); ?></div>
+                <?php
+                $categories = get_categories( array(
+                    'orderby' => 'name',
+                    'order'   => 'ASC',
+                    'number'  => 5,
+                ) );
+                
+                foreach ( $categories as $category ) {
+                    printf(
+                        '<div class="category-pill" data-category="%1$s">%2$s</div>',
+                        esc_attr( $category->slug ),
+                        esc_html( $category->name )
+                    );
+                }
                 ?>
-                <div class="articles-cta" style="text-align: center; margin-top: 3rem;">
-                    <a href="<?php echo esc_url($blog_page_url); ?>" class="btn btn-secondary"><?php _e('Voir tous les articles', 'mdmc-theme'); ?></a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="blog-grid">
+            <?php
+            $args = array(
+                'post_type'      => 'post',
+                'posts_per_page' => 6,
+            );
+            
+            $query = new WP_Query( $args );
+            
+            if ( $query->have_posts() ) :
+                while ( $query->have_posts() ) :
+                    $query->the_post();
+                    get_template_part( 'template-parts/content/content', 'card' );
+                endwhile;
+                wp_reset_postdata();
+            else :
+                get_template_part( 'template-parts/content/content', 'none' );
+            endif;
+            ?>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2><?php echo mdmc_get_translation('cta_title'); ?></h2>
+            <p><?php echo mdmc_get_translation('cta_description'); ?></p>
+            <a href="#simulator" class="cta-button"><?php echo mdmc_get_translation('simulator_button'); ?></a>
+        </div>
+    </section>
+
+    <section id="simulator" class="simulator-section">
+        <div class="container">
+            <h2><?php echo mdmc_get_translation('simulator_title'); ?></h2>
+            <p><?php echo mdmc_get_translation('simulator_description'); ?></p>
+            
+            <div class="simulator-form">
+                <form id="cost-simulator" action="#" method="post">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="platform"><?php echo mdmc_get_translation('simulator_platform_label'); ?></label>
+                            <select id="platform" name="platform" class="form-control">
+                                <option value="spotify"><?php echo mdmc_get_translation('simulator_platform_spotify'); ?></option>
+                                <option value="youtube"><?php echo mdmc_get_translation('simulator_platform_youtube'); ?></option>
+                                <option value="facebook"><?php echo mdmc_get_translation('simulator_platform_facebook'); ?></option>
+                                <option value="instagram"><?php echo mdmc_get_translation('simulator_platform_instagram'); ?></option>
+                                <option value="tiktok"><?php echo mdmc_get_translation('simulator_platform_tiktok'); ?></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget"><?php echo mdmc_get_translation('simulator_budget_label'); ?></label>
+                            <input type="number" id="budget" name="budget" class="form-control" min="100" step="100" value="1000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="duration"><?php echo mdmc_get_translation('simulator_duration_label'); ?></label>
+                            <select id="duration" name="duration" class="form-control">
+                                <option value="7"><?php echo mdmc_get_translation('simulator_duration_7'); ?></option>
+                                <option value="14"><?php echo mdmc_get_translation('simulator_duration_14'); ?></option>
+                                <option value="30" selected><?php echo mdmc_get_translation('simulator_duration_30'); ?></option>
+                                <option value="60"><?php echo mdmc_get_translation('simulator_duration_60'); ?></option>
+                                <option value="90"><?php echo mdmc_get_translation('simulator_duration_90'); ?></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="target"><?php echo mdmc_get_translation('simulator_target_label'); ?></label>
+                            <select id="target" name="target" class="form-control">
+                                <option value="general"><?php echo mdmc_get_translation('simulator_target_general'); ?></option>
+                                <option value="specific"><?php echo mdmc_get_translation('simulator_target_specific'); ?></option>
+                                <option value="niche"><?php echo mdmc_get_translation('simulator_target_niche'); ?></option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="objective"><?php echo mdmc_get_translation('simulator_objective_label'); ?></label>
+                        <select id="objective" name="objective" class="form-control">
+                            <option value="awareness"><?php echo mdmc_get_translation('simulator_objective_awareness'); ?></option>
+                            <option value="streams"><?php echo mdmc_get_translation('simulator_objective_streams'); ?></option>
+                            <option value="followers"><?php echo mdmc_get_translation('simulator_objective_followers'); ?></option>
+                            <option value="engagement"><?php echo mdmc_get_translation('simulator_objective_engagement'); ?></option>
+                            <option value="conversion"><?php echo mdmc_get_translation('simulator_objective_conversion'); ?></option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group text-center mt-4">
+                        <button type="submit" class="cta-button"><?php echo mdmc_get_translation('simulator_calculate_button'); ?></button>
+                    </div>
+                </form>
+                
+                <div class="simulator-results" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="result-card">
+                                <h4><?php echo mdmc_get_translation('simulator_result_reach'); ?></h4>
+                                <div class="result-value" id="result-reach">0</div>
+                                <p><?php echo mdmc_get_translation('simulator_result_reach_description'); ?></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="result-card">
+                                <h4><?php echo mdmc_get_translation('simulator_result_engagement'); ?></h4>
+                                <div class="result-value" id="result-engagement">0</div>
+                                <p><?php echo mdmc_get_translation('simulator_result_engagement_description'); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="result-card">
+                                <h4><?php echo mdmc_get_translation('simulator_result_cost'); ?></h4>
+                                <div class="result-value" id="result-cost">0€</div>
+                                <p><?php echo mdmc_get_translation('simulator_result_cost_description'); ?></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="result-card">
+                                <h4><?php echo mdmc_get_translation('simulator_result_roi'); ?></h4>
+                                <div class="result-value" id="result-roi">0%</div>
+                                <p><?php echo mdmc_get_translation('simulator_result_roi_description'); ?></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <?php endif; ?>
+            </div>
+        </div>
+    </section>
 
-            <?php else : // S'il n'y a aucun article ?>
-                <p><?php _e('Aucun article à afficher pour le moment.', 'mdmc-theme'); ?></p>
-            <?php endif; ?>
+</main><!-- #primary -->
 
-            <?php wp_reset_postdata(); // Important après une boucle WP_Query personnalisée ?>
-
-        </div></section><?php // --- Fin Section des Articles Récents --- ?>
+<?php
+get_footer();

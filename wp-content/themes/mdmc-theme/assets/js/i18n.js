@@ -1,331 +1,222 @@
 /**
- * Enhanced i18n.js for MDMC Music Ads Blog Theme
+ * i18n.js - Internationalization for MDMC Music Ads Theme
  * 
- * Comprehensive internationalization system that handles:
- * - Language detection
- * - UI translation
- * - Content translation
- * - SEO metadata translation
+ * This script handles language detection and translation for the theme
  */
 
 (function($) {
     'use strict';
 
-    // Store translations
-    let translations = {};
-    
-    // Dictionary for automatic content translation
-    let dictionary = {};
-    
-    // Current language
-    let currentLang = mdmcI18n.current_lang || 'fr';
-    
-    /**
-     * Initialize i18n functionality
-     */
-    function init() {
-        // Load translations
-        loadTranslations();
+    // i18n object
+    var i18n = {
+        currentLang: 'fr',
+        defaultLang: 'fr',
+        supportedLangs: ['fr', 'en', 'es', 'pt'],
+        translations: {},
         
-        // Load translation dictionary
-        loadDictionary();
-        
-        // Setup language switcher
-        setupLanguageSwitcher();
-        
-        // Apply translations to the page
-        translatePage();
-        
-        // Setup automatic content translation
-        setupContentTranslation();
-    }
-    
-    /**
-     * Load translations from JSON file
-     */
-    function loadTranslations() {
-        $.ajax({
-            url: mdmcThemeUri + '/assets/js/languages.json',
-            dataType: 'json',
-            cache: true,
-            success: function(data) {
-                translations = data;
-                translatePage();
-            },
-            error: function() {
-                console.error('Failed to load translations');
-            }
-        });
-    }
-    
-    /**
-     * Load translation dictionary
-     */
-    function loadDictionary() {
-        $.ajax({
-            url: mdmcThemeUri + '/assets/js/dictionary.json',
-            dataType: 'json',
-            cache: true,
-            success: function(data) {
-                dictionary = data;
-                // Apply content translation after dictionary is loaded
-                translateContent();
-            },
-            error: function() {
-                console.error('Failed to load dictionary');
-            }
-        });
-    }
-    
-    /**
-     * Setup language switcher functionality
-     */
-    function setupLanguageSwitcher() {
-        // Toggle language dropdown
-        $('.language-toggle').on('click', function(e) {
-            e.preventDefault();
-            $('.language-dropdown').toggleClass('active');
-            $(this).attr('aria-expanded', $('.language-dropdown').hasClass('active'));
-        });
-        
-        // Close dropdown when clicking outside
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('.language-selector').length) {
-                $('.language-dropdown').removeClass('active');
-                $('.language-toggle').attr('aria-expanded', 'false');
-            }
-        });
-        
-        // Language selection
-        $('.language-dropdown a').on('click', function(e) {
-            e.preventDefault();
-            const lang = $(this).data('lang');
+        /**
+         * Initialize the i18n functionality
+         */
+        init: function() {
+            // Set current language
+            this.detectLanguage();
             
-            if (lang && mdmcI18n.languages.includes(lang)) {
-                setLanguage(lang);
+            // Load translations
+            if (typeof window.i18n !== 'undefined') {
+                this.translations = window.i18n;
             }
-        });
+            
+            // Apply translations to the page
+            this.translatePage();
+            
+            // Setup language switcher
+            this.setupLanguageSwitcher();
+        },
         
-        // Update current language display
-        updateCurrentLanguageDisplay();
-    }
-    
-    /**
-     * Set the language and update the page
-     * 
-     * @param {string} lang Language code (fr, en, es, pt)
-     */
-    function setLanguage(lang) {
-        if (lang === currentLang) {
-            return;
-        }
-        
-        // Update current language
-        currentLang = lang;
-        
-        // Save language preference via cookie
-        document.cookie = 'mdmc_language=' + lang + '; path=/; max-age=' + (86400 * 30); // 30 days
-        
-        // Update language display
-        updateCurrentLanguageDisplay();
-        
-        // Apply translations
-        translatePage();
-        
-        // Apply content translations
-        translateContent();
-        
-        // Update metadata
-        updateMetadata();
-    }
-    
-    /**
-     * Update the current language display in the header
-     */
-    function updateCurrentLanguageDisplay() {
-        $('.current-language').text(currentLang.toUpperCase());
-        
-        // Update active class in dropdown
-        $('.language-dropdown a').removeClass('active');
-        $(`.language-dropdown a[data-lang="${currentLang}"]`).addClass('active');
-    }
-    
-    /**
-     * Translate the page UI elements based on current language
-     */
-    function translatePage() {
-        if (Object.keys(translations).length === 0) {
-            return;
-        }
-        
-        // Translate elements with data-i18n attribute
-        $('[data-i18n]').each(function() {
-            const key = $(this).data('i18n');
-            if (translations[key] && translations[key][currentLang]) {
-                $(this).html(translations[key][currentLang]);
-            }
-        });
-        
-        // Translate placeholders with data-i18n-placeholder
-        $('[data-i18n-placeholder]').each(function() {
-            const key = $(this).data('i18n-placeholder');
-            if (translations[key] && translations[key][currentLang]) {
-                $(this).attr('placeholder', translations[key][currentLang]);
-            }
-        });
-        
-        // Translate aria-labels with data-i18n-aria
-        $('[data-i18n-aria]').each(function() {
-            const key = $(this).data('i18n-aria');
-            if (translations[key] && translations[key][currentLang]) {
-                $(this).attr('aria-label', translations[key][currentLang]);
-            }
-        });
-    }
-    
-    /**
-     * Setup automatic content translation
-     */
-    function setupContentTranslation() {
-        // Add data attributes to content elements for translation
-        $('.entry-title, .entry-content p, .entry-content h2, .entry-content h3, .entry-content h4, .entry-content li, .entry-summary').each(function() {
-            // Skip elements that already have data-i18n attribute
-            if ($(this).attr('data-i18n')) {
+        /**
+         * Detect the user's language
+         */
+        detectLanguage: function() {
+            // Check for language cookie
+            var langCookie = this.getCookie('mdmc_language');
+            if (langCookie && this.supportedLangs.indexOf(langCookie) !== -1) {
+                this.currentLang = langCookie;
                 return;
             }
             
-            // Add data-content-lang attribute to mark content for translation
-            $(this).attr('data-content-lang', 'fr');
+            // Check URL parameter
+            var urlLang = this.getUrlParameter('lang');
+            if (urlLang && this.supportedLangs.indexOf(urlLang) !== -1) {
+                this.currentLang = urlLang;
+                this.setCookie('mdmc_language', urlLang, 30);
+                return;
+            }
             
-            // Store original content for translation
-            $(this).attr('data-original-content', $(this).html());
-        });
+            // Check browser language
+            var browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang) {
+                browserLang = browserLang.substr(0, 2).toLowerCase();
+                if (this.supportedLangs.indexOf(browserLang) !== -1) {
+                    this.currentLang = browserLang;
+                    this.setCookie('mdmc_language', browserLang, 30);
+                    return;
+                }
+            }
+            
+            // Default to French
+            this.currentLang = this.defaultLang;
+        },
         
-        // Apply content translation
-        translateContent();
-    }
-    
-    /**
-     * Translate content based on dictionary
-     */
-    function translateContent() {
-        if (Object.keys(dictionary).length === 0) {
-            return;
-        }
+        /**
+         * Get a translation
+         */
+        translate: function(key) {
+            if (!key) return '';
+            
+            // Check if translation exists for current language
+            if (this.translations[key] && this.translations[key][this.currentLang]) {
+                return this.translations[key][this.currentLang];
+            }
+            
+            // Fallback to default language
+            if (this.translations[key] && this.translations[key][this.defaultLang]) {
+                return this.translations[key][this.defaultLang];
+            }
+            
+            // Return the key if no translation found
+            return key;
+        },
         
-        // Skip if current language is French (source language)
-        if (currentLang === 'fr') {
-            // Restore original content
-            $('[data-content-lang]').each(function() {
-                $(this).html($(this).attr('data-original-content'));
+        /**
+         * Translate all elements with data-i18n attribute
+         */
+        translatePage: function() {
+            var self = this;
+            
+            // Set html lang attribute
+            $('html').attr('lang', this.currentLang);
+            
+            // Translate elements with data-i18n attribute
+            $('[data-i18n]').each(function() {
+                var key = $(this).data('i18n');
+                var translation = self.translate(key);
+                
+                if (translation) {
+                    $(this).html(translation);
+                }
             });
-            return;
-        }
-        
-        // Translate content elements
-        $('[data-content-lang]').each(function() {
-            const originalContent = $(this).attr('data-original-content');
-            if (!originalContent) {
-                return;
-            }
             
-            // Translate content using dictionary
-            let translatedContent = translateTextWithDictionary(originalContent, 'fr', currentLang);
+            // Translate placeholders
+            $('[data-i18n-placeholder]').each(function() {
+                var key = $(this).data('i18n-placeholder');
+                var translation = self.translate(key);
+                
+                if (translation) {
+                    $(this).attr('placeholder', translation);
+                }
+            });
             
-            // Update element with translated content
-            $(this).html(translatedContent);
-        });
-    }
-    
-    /**
-     * Translate text using dictionary
-     * 
-     * @param {string} text Text to translate
-     * @param {string} sourceLang Source language
-     * @param {string} targetLang Target language
-     * @return {string} Translated text
-     */
-    function translateTextWithDictionary(text, sourceLang, targetLang) {
-        if (!dictionary[sourceLang] || !dictionary[targetLang]) {
-            return text;
-        }
+            // Translate titles
+            $('[data-i18n-title]').each(function() {
+                var key = $(this).data('i18n-title');
+                var translation = self.translate(key);
+                
+                if (translation) {
+                    $(this).attr('title', translation);
+                }
+            });
+            
+            // Update language switcher
+            $('.language-toggle').text(this.currentLang.toUpperCase());
+            $('.language-dropdown a').removeClass('active');
+            $('.language-dropdown a[data-lang="' + this.currentLang + '"]').addClass('active');
+        },
         
-        let translatedText = text;
+        /**
+         * Setup language switcher
+         */
+        setupLanguageSwitcher: function() {
+            var self = this;
+            
+            // Toggle language dropdown
+            $('.language-toggle').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var expanded = $(this).attr('aria-expanded') === 'true';
+                $(this).attr('aria-expanded', !expanded);
+                $('.language-dropdown').toggleClass('active');
+            });
+            
+            // Handle language selection
+            $('.language-dropdown a').on('click', function(e) {
+                e.preventDefault();
+                
+                var lang = $(this).data('lang');
+                if (lang && self.supportedLangs.indexOf(lang) !== -1) {
+                    self.currentLang = lang;
+                    self.setCookie('mdmc_language', lang, 30);
+                    
+                    // Reload page with language parameter
+                    var url = new URL(window.location.href);
+                    url.searchParams.set('lang', lang);
+                    window.location.href = url.toString();
+                }
+            });
+            
+            // Close dropdown when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.language-selector').length) {
+                    $('.language-toggle').attr('aria-expanded', 'false');
+                    $('.language-dropdown').removeClass('active');
+                }
+            });
+        },
         
-        // Replace words and phrases based on dictionary
-        for (const [sourceWord, translations] of Object.entries(dictionary[sourceLang])) {
-            if (translations[targetLang]) {
-                // Create a regular expression to match the word with word boundaries
-                const regex = new RegExp('\\b' + sourceWord + '\\b', 'gi');
-                translatedText = translatedText.replace(regex, translations[targetLang]);
+        /**
+         * Get a cookie value
+         */
+        getCookie: function(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
             }
+            return null;
+        },
+        
+        /**
+         * Set a cookie
+         */
+        setCookie: function(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + value + expires + "; path=/";
+        },
+        
+        /**
+         * Get URL parameter
+         */
+        getUrlParameter: function(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
-        
-        return translatedText;
-    }
+    };
     
-    /**
-     * Update metadata for SEO based on current language
-     */
-    function updateMetadata() {
-        // Get page metadata
-        const pageData = mdmcI18n.pageData || {};
+    // Initialize i18n when document is ready
+    $(document).ready(function() {
+        i18n.init();
         
-        // Update meta description
-        if (pageData.meta_description && pageData.meta_description[currentLang]) {
-            $('meta[name="description"]').attr('content', pageData.meta_description[currentLang]);
-            $('meta[property="og:description"]').attr('content', pageData.meta_description[currentLang]);
-        }
-        
-        // Update meta keywords
-        if (pageData.meta_keywords && pageData.meta_keywords[currentLang]) {
-            $('meta[name="keywords"]').attr('content', pageData.meta_keywords[currentLang]);
-        }
-        
-        // Update og:locale
-        $('meta[property="og:locale"]').attr('content', getLocaleFromCode(currentLang));
-    }
-    
-    /**
-     * Get locale from language code
-     * 
-     * @param {string} code Language code
-     * @return {string} Locale
-     */
-    function getLocaleFromCode(code) {
-        const locales = {
-            'fr': 'fr_FR',
-            'en': 'en_US',
-            'es': 'es_ES',
-            'pt': 'pt_PT'
-        };
-        
-        return locales[code] || 'fr_FR';
-    }
-    
-    /**
-     * Get translation for a specific key
-     * 
-     * @param {string} key Translation key
-     * @return {string} Translated text or key if not found
-     */
-    function getTranslation(key) {
-        if (translations[key] && translations[key][currentLang]) {
-            return translations[key][currentLang];
-        }
-        
-        // Fallback to French
-        if (translations[key] && translations[key]['fr']) {
-            return translations[key]['fr'];
-        }
-        
-        return key;
-    }
-    
-    // Make getTranslation available globally
-    window.mdmcGetTranslation = getTranslation;
-    
-    // Initialize when document is ready
-    $(document).ready(init);
+        // Make i18n available globally
+        window.mdmcI18n = i18n;
+    });
     
 })(jQuery);
