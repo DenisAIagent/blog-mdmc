@@ -167,7 +167,8 @@ add_action( 'widgets_init', 'mdmc_widgets_init' );
  * Enqueue scripts and styles.
  */
 function mdmc_scripts() {
-	wp_enqueue_style( 'mdmc-style', get_stylesheet_uri(), array(), MDMC_VERSION );
+        wp_enqueue_style( 'mdmc-google-fonts', 'https://fonts.googleapis.com/css2?family=Kadwa:wght@400;700&family=Roboto:wght@400;700&family=Montserrat:wght@400;700&display=swap', array(), null );
+        wp_enqueue_style( 'mdmc-style', get_stylesheet_uri(), array( 'mdmc-google-fonts' ), MDMC_VERSION );
 	wp_style_add_data( 'mdmc-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'mdmc-navigation', get_template_directory_uri() . '/js/navigation.js', array(), MDMC_VERSION, true );
