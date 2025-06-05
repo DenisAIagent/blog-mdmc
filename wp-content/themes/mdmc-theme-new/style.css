@@ -14,15 +14,17 @@ Tags: blog, music, marketing, multilingual, seo-optimized
 /* Variables CSS */
 :root {
   /* Couleurs principales */
-  --color-background: #0A0A0A;
-  --color-primary: #E50914;
-  --color-text: #FFFFFF;
-  --color-text-secondary: #AAAAAA;
-  --color-border: #333333;
+  --color-background: #FFF;
+  --color-primary: #d43939;
+  --color-text: #000;
+  --color-text-secondary: #555;
+  --color-border: #CCC;
+  --color-footer-bg: #162238;
   
   /* Typographies */
-  --font-heading: 'Poppins', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Kadwa', serif;
+  --font-body: 'Roboto', sans-serif;
+  --font-ui: 'Montserrat', sans-serif;
   
   /* Espacements */
   --spacing-xs: 0.5rem;
@@ -299,6 +301,7 @@ hr {
   font-weight: 500;
   padding: 0.5rem 0;
   position: relative;
+  font-family: var(--font-ui);
 }
 
 .main-menu a:hover,
@@ -545,7 +548,7 @@ hr {
 
 /* Footer Styles */
 .site-footer {
-  background-color: var(--color-background);
+  background-color: var(--color-footer-bg);
   border-top: 1px solid var(--color-border);
   padding: var(--spacing-lg) 0;
   color: var(--color-text-secondary);
@@ -653,6 +656,7 @@ hr {
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
   font-weight: 500;
+  font-family: var(--font-ui);
   text-decoration: none;
   transition: background-color var(--transition-fast), color var(--transition-fast);
   cursor: pointer;
