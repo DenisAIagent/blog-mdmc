@@ -42,8 +42,8 @@ define( 'WP_DEBUG', false );
 
 // === 🔧 SOLUTION : Forcer l'URL pour récupérer l'accès admin === //
 // DÉCOMMENTÉES pour résoudre le problème de connexion
-define( 'WP_HOME', 'https://blog.mdmcmusicads.com' );
-define( 'WP_SITEURL', 'https://blog.mdmcmusicads.com' );
+define( 'WP_HOME', 'https://blog-wp-production.up.railway.app/' );
+define( 'WP_SITEURL', 'https://blog-wp-production.up.railway.app/' );
 
 /* C'est tout, ne touchez pas à ce qui suit ! Bonne publication. */
 
