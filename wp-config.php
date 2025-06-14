@@ -9,21 +9,16 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 // === Configuration MySQL - Railway, version en dur pour test === //
 /** Nom de la base de données de WordPress. */
 define( 'DB_NAME', 'railway' );
-
 /** Utilisateur de la base de données MySQL. */
 define( 'DB_USER', 'root' );
-
 /** Mot de passe de la base de données MySQL. */
 // ATTENTION : Mot de passe en clair ci-dessous ! Risque de sécurité si le code est public !
 define( 'DB_PASSWORD', 'ojuNJzLTITYUhVINEAYOLhqiTzWcoHMd' );
-
-/** Adresse de l’hébergement MySQL. */
+/** Adresse de l'hébergement MySQL. */
 // Le port 3306 est standard, donc l'hôte seul suffit.
 define( 'DB_HOST', 'mysql.railway.internal' );
-
 /** Jeu de caractères à utiliser par la base de données lors de la création des tables. */
 define( 'DB_CHARSET', 'utf8mb4' ); // utf8mb4 est recommandé
-
 /** Type de collation de la base de données. */
 define( 'DB_COLLATE', '' );
 
@@ -45,12 +40,12 @@ $table_prefix = 'wp_';
 // Mettre à true seulement pour le débogage, false en production.
 define( 'WP_DEBUG', false );
 
-// === Forcer l’URL (Normalement inutile si les réglages WP sont corrects et le fix HTTPS est appliqué) === //
-// Laissez-les commentés sauf si vous avez encore des problèmes de redirection après les autres corrections.
-// define( 'WP_HOME', 'https://blog-wp-production.up.railway.app' );
-// define( 'WP_SITEURL', 'https://blog-wp-production.up.railway.app' );
+// === 🔧 SOLUTION : Forcer l'URL pour récupérer l'accès admin === //
+// DÉCOMMENTÉES pour résoudre le problème de connexion
+define( 'WP_HOME', 'https://blog-wp-production.up.railway.app' );
+define( 'WP_SITEURL', 'https://blog-wp-production.up.railway.app' );
 
-/* C’est tout, ne touchez pas à ce qui suit ! Bonne publication. */
+/* C'est tout, ne touchez pas à ce qui suit ! Bonne publication. */
 
 /** Chemin absolu vers le dossier de WordPress. */
 if ( ! defined( 'ABSPATH' ) ) {
