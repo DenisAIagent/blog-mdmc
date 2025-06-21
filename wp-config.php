@@ -38,7 +38,10 @@ $table_prefix = 'wp_';
 
 // === Debug === //
 // Mettre à true seulement pour le débogage, false en production.
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', false );
+@ini_set( 'display_errors', 0 );
 
 // === 🔧 SOLUTION : Forcer l'URL pour récupérer l'accès admin === //
 // DÉCOMMENTÉES pour résoudre le problème de connexion
