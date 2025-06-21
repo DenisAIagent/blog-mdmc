@@ -7,4 +7,10 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
+
+# ✅ Optimisations PHP recommandées
+<IfModule mod_php.c>
+    php_value max_execution_time 90
+    php_value max_input_vars 3000
+</IfModule>
 # END WordPress
