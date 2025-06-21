@@ -1,29 +1,18 @@
 <?php
-/** Fix HTTPS detection behind Railway proxy */
-// Ce bloc aide WordPress à savoir qu'il est en HTTPS même s'il est derrière un proxy.
+/** ✅ Forcer HTTPS derrière le proxy Railway */
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
     $_SERVER['HTTPS'] = 'on';
 }
-/** End Fix */
 
-// === Configuration MySQL - Railway, version en dur pour test === //
-/** Nom de la base de données de WordPress. */
+/** 🔧 Configuration de la base de données */
 define( 'DB_NAME', 'railway' );
-/** Utilisateur de la base de données MySQL. */
 define( 'DB_USER', 'root' );
-/** Mot de passe de la base de données MySQL. */
-// ATTENTION : Mot de passe en clair ci-dessous ! Risque de sécurité si le code est public !
 define( 'DB_PASSWORD', 'ojuNJzLTITYUhVINEAYOLhqiTzWcoHMd' );
-/** Adresse de l'hébergement MySQL. */
-// Le port 3306 est standard, donc l'hôte seul suffit.
 define( 'DB_HOST', 'mysql.railway.internal' );
-/** Jeu de caractères à utiliser par la base de données lors de la création des tables. */
-define( 'DB_CHARSET', 'utf8mb4' ); // utf8mb4 est recommandé
-/** Type de collation de la base de données. */
+define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_COLLATE', '' );
 
-// === Clés de sécurité WordPress === //
-// Assurez-vous que ce sont bien vos clés uniques générées
+/** 🔐 Clés de sécurité WordPress */
 define('AUTH_KEY',         'c}8JDK)iS^hS+sw-#VZ;Y;4$+.BO,Xz#N-YIk:$kuNnWDRX-`KMyIdl|=Se,|Wvv');
 define('SECURE_AUTH_KEY',  'UA_KcY7UyrvF{61F|5~rinmqW|sr *FD2.Ol~dV-YibLv(&:KLc*+uI6pUR+#+Lu');
 define('LOGGED_IN_KEY',    ',f4yAIN;Gv^^0s-Hx1#(@>[(/IA#DZoTE[$uVLJ)`|+z& +1]kJe!3R|{{_sM{zj');
@@ -33,27 +22,24 @@ define('SECURE_AUTH_SALT', 'Mmz;,nnt-i3,K=x4MRSHi2+))Ds}/CF7(lXsjy|+5Z%aKw>A[MTl
 define('LOGGED_IN_SALT',   'QhVcKW|Duyx n/>-U;=?U+s=eJ8rO%dT-}!a3>DN*$plPPzTfhg|GGt@*(!$u#J3');
 define('NONCE_SALT',       '^:mZFv]so/m,Z{=7uK9L%x.~V_?=|L1]OY1&o[2X0_OoQD;o%Jj?hx-O@J)piM3}');
 
-// === Préfixe des tables WordPress === //
+/** 🗂 Préfixe des tables */
 $table_prefix = 'wp_';
 
-// === Debug === //
-// Mettre à true seulement pour le débogage, false en production.
-define( 'WP_DEBUG', true );
-define( 'WP_DEBUG_LOG', true );
+/** 🛡️ Mode production : désactiver le débogage */
+define( 'WP_DEBUG', false );
+define( 'WP_DEBUG_LOG', false );
 define( 'WP_DEBUG_DISPLAY', false );
 @ini_set( 'display_errors', 0 );
 
-// === 🔧 SOLUTION : Forcer l'URL pour récupérer l'accès admin === //
-// DÉCOMMENTÉES pour résoudre le problème de connexion
+/** 🌐 URL du site WordPress (Railway) */
 define( 'WP_HOME', 'https://blog-wp-production.up.railway.app/' );
 define( 'WP_SITEURL', 'https://blog-wp-production.up.railway.app/' );
 
-/* C'est tout, ne touchez pas à ce qui suit ! Bonne publication. */
+/** 💾 Augmenter la mémoire PHP (important !) */
+define( 'WP_MEMORY_LIMIT', '256M' );
 
-/** Chemin absolu vers le dossier de WordPress. */
+/** 🚀 Fin des personnalisations – ne rien toucher en dessous */
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', __DIR__ . '/' );
 }
-
-/** Réglage des variables WordPress et de ses fichiers inclus. */
 require_once ABSPATH . 'wp-settings.php';
