@@ -25,17 +25,17 @@ define('NONCE_SALT',       '^:mZFv]so/m,Z{=7uK9L%x.~V_?=|L1]OY1&o[2X0_OoQD;o%Jj?
 /** 🗂 Préfixe des tables */
 $table_prefix = 'wp_';
 
-/** 🛡️ Mode production : désactiver le débogage */
-define( 'WP_DEBUG', false );
-define( 'WP_DEBUG_LOG', false );
-define( 'WP_DEBUG_DISPLAY', false );
-@ini_set( 'display_errors', 0 );
+/** 🛡️ Mode production avec debug activé pour diagnostiquer */
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', true );
+@ini_set( 'display_errors', 1 );
 
-/** 🌐 URL du site WordPress (domaine personnalisé MDMC) */
+/** 🌐 Domaine personnalisé du site WordPress */
 define( 'WP_HOME', 'https://blog.mdmcmusicads.com' );
 define( 'WP_SITEURL', 'https://blog.mdmcmusicads.com' );
 
-/** 💾 Augmenter la mémoire PHP (important !) */
+/** 💾 Augmenter la mémoire PHP */
 define( 'WP_MEMORY_LIMIT', '256M' );
 
 /** 🚀 Fin des personnalisations – ne rien toucher en dessous */
