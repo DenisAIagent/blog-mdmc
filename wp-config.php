@@ -31,9 +31,9 @@ define( 'WP_DEBUG_LOG', false );
 define( 'WP_DEBUG_DISPLAY', false );
 @ini_set( 'display_errors', 0 );
 
-/** 🌐 URL du site WordPress (Railway) */
-define( 'WP_HOME', 'https://blog-wp-production.up.railway.app/' );
-define( 'WP_SITEURL', 'https://blog-wp-production.up.railway.app/' );
+/** 🌐 URL du site WordPress (domaine personnalisé MDMC) */
+define( 'WP_HOME', 'https://blog.mdmcmusicads.com' );
+define( 'WP_SITEURL', 'https://blog.mdmcmusicads.com' );
 
 /** 💾 Augmenter la mémoire PHP (important !) */
 define( 'WP_MEMORY_LIMIT', '256M' );
