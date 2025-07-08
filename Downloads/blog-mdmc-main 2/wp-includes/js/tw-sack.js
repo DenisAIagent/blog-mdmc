@@ -1,5 +1,5 @@
 /* Simple AJAX Code-Kit (SACK) v1.6.1 */
-/* ©2005 Gregory Wild-Smith */
+/* �2005 Gregory Wild-Smith */
 /* www.twilightuniverse.com */
 /* Software licenced under a modified X11 licence,
    see documentation or authors website for more details */
@@ -7,7 +7,7 @@
 function sack(file) {
 	this.xmlhttp = null;
 
-	this.resetData = function( ) {
+	this.resetData = function() {
 		this.method = "POST";
   		this.queryStringSeparator = "?";
 		this.argumentSeparator = "&";
@@ -37,18 +37,18 @@ function sack(file) {
 
 	this.createAJAX = function() {
 		try {
-			this.xmlhttp = new ActiveXObject("Msxml2.XMLHTTP" );
+			this.xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
 		} catch (e1) {
 			try {
-				this.xmlhttp = new ActiveXObject("Microsoft.XMLHTTP" );
+				this.xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 			} catch (e2) {
 				this.xmlhttp = null;
 			}
 		}
 
-		if (! this.xmlhttp ) {
+		if (! this.xmlhttp) {
 			if (typeof XMLHttpRequest != "undefined") {
-				this.xmlhttp = new XMLHttpRequest( );
+				this.xmlhttp = new XMLHttpRequest();
 			} else {
 				this.failed = true;
 			}
@@ -127,20 +127,20 @@ function sack(file) {
 			if (this.element) {
 				this.elementObj = document.getElementById(this.element);
 			}
-			if (this.xmlhttp ) {
+			if (this.xmlhttp) {
 				var self = this;
 				if (this.method == "GET") {
 					totalurlstring = this.requestFile + this.queryStringSeparator + this.URLString;
-					this.xmlhttp.open(this.method, totalurlstring, true );
+					this.xmlhttp.open(this.method, totalurlstring, true);
 				} else {
-					this.xmlhttp.open(this.method, this.requestFile, true );
+					this.xmlhttp.open(this.method, this.requestFile, true);
 					try {
-						this.xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded" )
+						this.xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 					} catch (e) { }
 				}
 
-				this.xmlhttp.onreadystatechange = function( ) {
-					switch (self.xmlhttp.readyState ) {
+				this.xmlhttp.onreadystatechange = function() {
+					switch (self.xmlhttp.readyState) {
 						case 1:
 							self.onLoading();
 							break;
@@ -156,7 +156,7 @@ function sack(file) {
 							self.responseStatus[0] = self.xmlhttp.status;
 							self.responseStatus[1] = self.xmlhttp.statusText;
 
-							if (self.execute ) {
+							if (self.execute) {
 								self.runResponse();
 							}
 
@@ -183,7 +183,7 @@ function sack(file) {
 					}
 				};
 
-				this.xmlhttp.send(this.URLString );
+				this.xmlhttp.send(this.URLString);
 			}
 		}
 	};
